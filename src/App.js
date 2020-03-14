@@ -23,7 +23,7 @@ let seriesData = data.filter(item =>
   item.programType === "series" && item.releaseYear >= 2010
 );
 seriesData = seriesData.slice(0,21);
-console.log(seriesData);
+
 
 let moviesData = data.filter(item => 
  item.programType === "movie" && item.releaseYear >= 2010

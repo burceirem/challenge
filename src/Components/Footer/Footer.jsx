@@ -1,17 +1,16 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, Button , Form , FormControl} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 import './Footer.css';
 
-
+//fixed="bottom"
 const Footer = () => {
 
     return (
-        <div className="footer">
-            <p>Footer</p>
-        </div>
-   
-    );
+        <Navbar bg="light" sticky="bottom"  >
+            <Navbar.Text> PANKOD CHALLENGE PROJECT</Navbar.Text>          
+        </Navbar>
 
+    );
 };
 
 export default Footer;

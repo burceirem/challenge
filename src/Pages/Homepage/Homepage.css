@@ -1,9 +1,12 @@
 .box {
-    margin:160px;
+    margin-top:160px;
+    margin-left:600px;
+  
 }
 
 .button {
     width: 80px;
     height: 140px;
     background-color:black;
+    margin:40px;
 }

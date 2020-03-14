@@ -1,24 +1,31 @@
-import React ,{useState}from "react";
+import React ,{useState ,useEffect}from "react";
+import PropTypes from 'prop-types';
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import Content from "../../Components/Content/Content";
-import Container from 'react-bootstrap/Container';
-import { Dropdown} from 'react-bootstrap';
+import { Dropdown ,Form ,FormControl,Button,Navbar,Container} from 'react-bootstrap';
 
 
 const Series = ({seriesData}) => {
  
-    const [sort, setSort] = useState("titleAsc");
+    const [sort, setSort] = useState("");
+    const [searchData, setSearchData] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+   
+    useEffect(() => {
+     let results= seriesData.filter(item =>
+      item.title.toLowerCase().includes(searchTerm)
+      );
+      setSearchData(results);
+    }, [searchTerm]);
 
-    // const [searchTerm, setSearchTerm] = useState("");
-
-    // const handleChange = event => {
-    //   setSearchTerm(event.target.value);
-    // };
+    const handleChange = event => {
+      setSearchTerm(event.target.value);
+      setSort('search');
+    };
 
     const getSortedData = (sortKey) => { 
-      
-      console.log(sortKey);
+
      if(sortKey === 'yearAsc') {
         return seriesData.sort(sortYearAsc);
      }
@@ -28,12 +35,16 @@ const Series = ({seriesData}) => {
       if(sortKey === 'titleDesc'){
         return seriesData.sort(sortTitleDesc);
       }
+      if(sortKey ==='search'){
+        return searchData
+      }
 
      return seriesData.sort(sortTitleAsc);
     };
 
     const handleSelect = (sortKey) => {
       setSort(sortKey);
+
     };
 
     const sortTitleAsc = (a, b ) => {
@@ -74,36 +85,36 @@ const Series = ({seriesData}) => {
 
     
     return(
-    <div>
+    <React.Fragment>
         <Header/>
-
-        <Dropdown onSelect={handleSelect}>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Sort
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item eventKey="titleAsc">Title Asc</Dropdown.Item>
-          <Dropdown.Item eventKey="titleDesc">Title Desc</Dropdown.Item>
-          <Dropdown.Item eventKey="yearAsc">Release Year Asc</Dropdown.Item> 
-          <Dropdown.Item eventKey="yearDesc">Release Year Desc</Dropdown.Item> 
-        </Dropdown.Menu>
-      </Dropdown>
-        
- 
-    {/* <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2"  onChange={handleChange} />
-      <Button variant="outline-success">Search</Button>
-    </Form>
-  </Navbar.Collapse>
-  </Navbar> */}
-
-        <Container   style = {{display: 'flex', flexDirection: 'row', maxWidth: '100%', flexWrap: 'wrap'}}> 
+        <Navbar  style ={{padding:'20px'}}> 
+        <Form inline>
+          <FormControl eventKey="search" type="text" placeholder="Search" className="mr-sm-2"  onChange={handleChange}  />
+            <Button variant="outline-success">Search</Button>
+        </Form>
+        <Dropdown onSelect={handleSelect} style={{marginLeft:'800px'}}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic"> Sort</Dropdown.Toggle>
+            <Dropdown.Menu>
+            <Dropdown.Item eventKey="titleAsc">Title Asc</Dropdown.Item>
+            <Dropdown.Item eventKey="titleDesc">Title Desc</Dropdown.Item>
+            <Dropdown.Item eventKey="yearAsc">Release Year Asc</Dropdown.Item> 
+            <Dropdown.Item eventKey="yearDesc">Release Year Desc</Dropdown.Item> 
+            </Dropdown.Menu>
+          </Dropdown>
+      </Navbar>
+      <Container style = {{display: 'flex', flexDirection: 'row', maxWidth: '100%', flexWrap: 'wrap'}}> 
           {getSortedData(sort).map (  v =>  <Content key={v.title} title = {v.title} url ={v.images.PosterArt.url} /> )} 
-        </Container>
-        <Footer/>
-
-    </div>);
+      </Container>
+      <Footer/>
+    </React.Fragment>);
 };
+Series.propTypes = {
+  seriesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      url: PropTypes.string
+    }),
+  ).isRequired,
 
+};
 export default Series;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState ,useEffect } from 'react';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Button from 'react-bootstrap/Button';
@@ -27,7 +26,6 @@ return (
             </Link>
           </div>
         </div>
-       
     <Footer/>
   </React.Fragment>
         
