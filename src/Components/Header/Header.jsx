@@ -5,9 +5,11 @@ import'./Header.css';
 
 const Header = () => {
     return (
-        <Navbar bg="light" expand="lg"className="header" >
+      <div className="header"  data-testid="header" >
+        <Navbar bg="light" >
           <Navbar.Brand href="/">Homepage</Navbar.Brand>            
         </Navbar>
+        </div>
     );
 
 };

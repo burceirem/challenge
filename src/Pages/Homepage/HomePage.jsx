@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
-import Button from 'react-bootstrap/Button';
+import {Container,Row,Col,Button} from 'react-bootstrap';
+import { Link} from 'react-router-dom';
 import './Homepage.css';
 
-import { Link} from 'react-router-dom';
+
 
 const HomePage = () => {
  
@@ -12,20 +13,26 @@ return (
   
   <React.Fragment>  
     <Header/>
-      <div className = "box">
-          <div  class="d-inline-block "> 
+  
+      <Container  data-testid= "container" className = "container" >  
+        <Row className="row">
+          <Col xs="6"> 
             <Link to='/series'>
-            <Button className = "button" style ={{backgroundColor:'black'}}>
-              SERIES
-            </Button>
-            </Link>
-            <Link to='/movies'>
-              <Button className = "button" style ={{backgroundColor:'black'}}>
-              MOVIES
+              <Button  data-testid="buttonSeries" className = "button" >
+                SERIES
               </Button>
             </Link>
-          </div>
-        </div>
+          </Col>
+          <Col xs="6">
+            <Link to='/movies'>
+              <Button  data-testid="buttonMovies" className = "button" >
+                MOVIES
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+      </Container>
+     
     <Footer/>
   </React.Fragment>
         

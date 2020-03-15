@@ -5,6 +5,8 @@ import Series from "./Pages/Series/Series";
 import Homepage from "./Pages/Homepage/HomePage";
 import './App.css';
 import {BrowserRouter as Router,Route,Switch } from "react-router-dom";
+
+
 function App() {
   
   const [data , SetData] = useState([{}]);
@@ -21,7 +23,9 @@ function App() {
   
 let seriesData = data.filter(item => 
   item.programType === "series" && item.releaseYear >= 2010
+ 
 );
+
 seriesData = seriesData.slice(0,21);
 
 
@@ -31,15 +35,15 @@ let moviesData = data.filter(item =>
 moviesData = moviesData.slice(0,21);
   return (
  
-      
-     <Router>
-       <Switch> 
-         <Route   exact path = "/"  ><Homepage/></Route> 
-        <Route  path = "/series"  component={() => <Series  seriesData = {seriesData} />}></Route> 
-         <Route  path = "/movies" component={() => <Movies  moviesData = {moviesData} />}></Route>
-       </Switch>
-       </Router>
-          
+      <div>
+        <Router>
+        <Switch> 
+          <Route   exact path = "/"  ><Homepage/></Route> 
+          <Route  path = "/series"  component={() => <Series  seriesData = {seriesData} />}></Route> 
+          <Route  path = "/movies" component={() => <Movies  moviesData = {moviesData} />}></Route>
+        </Switch>
+        </Router>
+       </div>   
  
   );
 }

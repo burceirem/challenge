@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="header"
+  data-testid="header"
+>
+  <nav
+    className="navbar navbar-expand navbar-light bg-light"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+    >
+      Homepage
+    </a>
+  </nav>
+</div>
+`;

@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import Content from '../../Components/Content/Content';
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
-import { Dropdown ,Form ,FormControl,Button,Navbar,Container} from 'react-bootstrap';
+import { Dropdown ,Navbar} from 'react-bootstrap';
+import Searchbar from '../../Components/Searchbar/Searchbar';
+import '../MoviesAndSeries.css';
+
+
 const Movies = ({moviesData}) => {
 
   const [sort, setSort] = useState("");
   const [searchData, setSearchData] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+
+
+ const myCallback = (searchTerm , sort) => {
+  setSearchTerm(searchTerm);
+  setSort(sort);
  
+};
   
   useEffect(() => {
     let results= moviesData.filter(item =>
@@ -18,10 +28,7 @@ const Movies = ({moviesData}) => {
      setSearchData(results);
    }, [searchTerm]);
 
-   const handleChange = event => {
-     setSearchTerm(event.target.value);
-     setSort('search');
-   };
+ 
 
    const getSortedData = (sortKey) => { 
 
@@ -86,8 +93,9 @@ const Movies = ({moviesData}) => {
 return (
   <div>
        <Header/>
-       <Navbar> 
-        <Dropdown onSelect={handleSelect}>
+       <Navbar  className="navbar"> 
+       <Searchbar  callbackFromParent={myCallback}/>
+        <Dropdown onSelect={handleSelect} className="dropdown">
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           Sort
         </Dropdown.Toggle>
@@ -98,14 +106,10 @@ return (
           <Dropdown.Item eventKey="yearDesc">Release Year Desc</Dropdown.Item> 
         </Dropdown.Menu>
       </Dropdown>
-       <Form inline>
-        <FormControl eventKey="search" type="text" placeholder="Search" className="mr-sm-2"  onChange={handleChange}  />
-         <Button variant="outline-success">Search</Button>
-      </Form>
       </Navbar>
-        <Container   style = {{display: 'flex', flexDirection: 'row', maxWidth: '100%', flexWrap: 'wrap'}}> 
+        <div   className="content-container"> 
           {getSortedData(sort).map (  v =>  <Content key={v.title} title = {v.title} url ={v.images.PosterArt.url} /> )} 
-        </Container>
+        </div>
         <Footer/>
 
         </div>
@@ -117,9 +121,13 @@ Movies.propTypes = {
   moviesData: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      url: PropTypes.string
+      description: PropTypes.string,
+      programType: PropTypes.string,
+      images: PropTypes.shape({}),
+      releaseYear:PropTypes.number
     }),
-  ).isRequired,
-
+  ).isRequired
 };
+
+
 export default Movies;

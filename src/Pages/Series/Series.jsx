@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import Content from "../../Components/Content/Content";
-import { Dropdown ,Form ,FormControl,Button,Navbar,Container} from 'react-bootstrap';
-
+import { Dropdown ,Navbar} from 'react-bootstrap';
+import Searchbar from '../../Components/Searchbar/Searchbar';
+import '../MoviesAndSeries.css';
 
 const Series = ({seriesData}) => {
  
@@ -12,6 +13,14 @@ const Series = ({seriesData}) => {
     const [searchData, setSearchData] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
    
+    
+ const myCallback = (searchTerm , sort) => {
+  setSearchTerm(searchTerm);
+  setSort(sort);
+ 
+};
+
+
     useEffect(() => {
      let results= seriesData.filter(item =>
       item.title.toLowerCase().includes(searchTerm)
@@ -19,34 +28,27 @@ const Series = ({seriesData}) => {
       setSearchData(results);
     }, [searchTerm]);
 
-    const handleChange = event => {
-      setSearchTerm(event.target.value);
-      setSort('search');
-    };
-
     const getSortedData = (sortKey) => { 
-
      if(sortKey === 'yearAsc') {
-        return seriesData.sort(sortYearAsc);
+        return [].slice.call(seriesData).sort(sortYearAsc);
      }
      if(sortKey === 'yearDesc') {
-      return seriesData.sort(sortYearDesc);
+        return [].slice.call(seriesData).sort(sortYearDesc);
       }
       if(sortKey === 'titleDesc'){
-        return seriesData.sort(sortTitleDesc);
+        return [].slice.call(seriesData).sort(sortTitleDesc);
       }
       if(sortKey ==='search'){
         return searchData
       }
 
-     return seriesData.sort(sortTitleAsc);
+     return [].slice.call(seriesData).sort(sortTitleAsc);
     };
 
     const handleSelect = (sortKey) => {
       setSort(sortKey);
-
+ 
     };
-
     const sortTitleAsc = (a, b ) => {
       const titleA = a.title.toUpperCase();
       const titleB = b.title.toUpperCase();
@@ -87,34 +89,37 @@ const Series = ({seriesData}) => {
     return(
     <React.Fragment>
         <Header/>
-        <Navbar  style ={{padding:'20px'}}> 
-        <Form inline>
-          <FormControl eventKey="search" type="text" placeholder="Search" className="mr-sm-2"  onChange={handleChange}  />
-            <Button variant="outline-success">Search</Button>
-        </Form>
-        <Dropdown onSelect={handleSelect} style={{marginLeft:'800px'}}>
-          <Dropdown.Toggle variant="success" id="dropdown-basic"> Sort</Dropdown.Toggle>
-            <Dropdown.Menu>
-            <Dropdown.Item eventKey="titleAsc">Title Asc</Dropdown.Item>
-            <Dropdown.Item eventKey="titleDesc">Title Desc</Dropdown.Item>
-            <Dropdown.Item eventKey="yearAsc">Release Year Asc</Dropdown.Item> 
-            <Dropdown.Item eventKey="yearDesc">Release Year Desc</Dropdown.Item> 
-            </Dropdown.Menu>
-          </Dropdown>
+        <Navbar   data-testid="navbar" className="navbar"> 
+        <Searchbar  callbackFromParent={myCallback}/>
+        <Dropdown onSelect={handleSelect} className="dropdown">
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Sort
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item eventKey="titleAsc">Title Asc</Dropdown.Item>
+          <Dropdown.Item eventKey="titleDesc">Title Desc</Dropdown.Item>
+          <Dropdown.Item eventKey="yearAsc">Release Year Asc</Dropdown.Item> 
+          <Dropdown.Item eventKey="yearDesc">Release Year Desc</Dropdown.Item> 
+        </Dropdown.Menu>
+      </Dropdown>
       </Navbar>
-      <Container style = {{display: 'flex', flexDirection: 'row', maxWidth: '100%', flexWrap: 'wrap'}}> 
+      <div  className="content-container"> 
           {getSortedData(sort).map (  v =>  <Content key={v.title} title = {v.title} url ={v.images.PosterArt.url} /> )} 
-      </Container>
+      </div>
       <Footer/>
     </React.Fragment>);
 };
+
 Series.propTypes = {
   seriesData: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
-      url: PropTypes.string
+      description: PropTypes.string,
+      programType: PropTypes.string,
+      images: PropTypes.shape({}),
+      releaseYear:PropTypes.number
     }),
   ).isRequired,
-
 };
+
 export default Series;

@@ -1,0 +1,14 @@
+
+.navbar{
+    padding:20px;
+}
+.dropdown{
+    margin-left:800px;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    flex-wrap: wrap;
+}

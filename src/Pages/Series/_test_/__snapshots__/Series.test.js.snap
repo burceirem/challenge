@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+Array [
+  <div
+    className="header"
+    data-testid="header"
+  >
+    <nav
+      className="navbar navbar-expand navbar-light bg-light"
+    >
+      <a
+        className="navbar-brand"
+        href="/"
+      >
+        Homepage
+      </a>
+    </nav>
+  </div>,
+  <nav
+    className="navbar navbar navbar-expand navbar-light"
+    data-testid="navbar"
+  >
+    <form
+      className="form-inline"
+    >
+      <input
+        className="mr-sm-2 form-control"
+        onChange={[Function]}
+        placeholder="Search"
+        type="text"
+      />
+    </form>
+    <div
+      className="dropdown dropdown"
+      onKeyDown={[Function]}
+    >
+      <button
+        aria-expanded={false}
+        aria-haspopup={true}
+        className="dropdown-toggle btn btn-success"
+        disabled={false}
+        id="dropdown-basic"
+        onClick={[Function]}
+        type="button"
+      >
+        Sort
+      </button>
+    </div>
+  </nav>,
+  <div
+    className="content-container"
+  >
+    <div
+      className="card card"
+      data-testid="card"
+    >
+      <img
+        className="card-img-top"
+        src="https://streamcoimg-a.akamaihd.net/000/128/61/12861-PosterArt-ec32a81986a45eac7e080112075ab466.jpg"
+      />
+      <div
+        className="card-body"
+      >
+        <p
+          className="card-text"
+        >
+           
+          Wolf Creek
+           
+        </p>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="footer"
+    data-testid="footer"
+  >
+    <p>
+      PANKOD CHALLENGE PROJECT 
+    </p>
+  </div>,
+]
+`;

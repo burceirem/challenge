@@ -1,26 +1,22 @@
-import React , {FC} from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
+import './Content.css';
 
-
-const Content =  (props)  => {
-
-    const { title , url } = props;
+const Content =  ( { title , url })  => {
 
     if(typeof url == 'undefined')
         return null;
-
-        
-
+  
     return(
-       <div > 
-          <Card style={{ width: '200px'}}>
+
+        <Card data-testid="card"  className="card" >
            <Card.Img variant="top" src={url} />
            <Card.Body>
              <Card.Text> {title} </Card.Text>
            </Card.Body>
-         </Card>
-         </div>
+        </Card>
+       
     );
 };
 
